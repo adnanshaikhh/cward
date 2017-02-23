@@ -1,7 +1,7 @@
-#include <stdio.h>
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
 #include <gl/glew.h>
+#include "log.h"
 
 int Init()
 {
@@ -90,6 +90,7 @@ int main(int argc, char** argv[])
   {   
     while(1)
     {
+      TODO("Write core rendering loop");
     }
     SDL_Quit();
   }
