@@ -1,6 +1,6 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
-#include <gl/glew.h>
+#include <GL/glew.h>
 #include "log.h"
 
 int Init()
