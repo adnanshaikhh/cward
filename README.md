@@ -4,5 +4,6 @@ Written in pure C
 
 ## Compiling
 ```bash
-make
+cd build
+cmake -DCMAKE_GENERATOR_PLATFORM=x64 ..
 ```
