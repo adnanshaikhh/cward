@@ -2,98 +2,55 @@
 #include <SDL.h>
 #include <GL/glew.h>
 #include "log.h"
+#include "graphics.h"
 
-int Init()
+void TextInput()
 {
-  if(SDL_Init(SDL_INIT_EVERYTHING) != 0)
-  {
-    printf("SDL_Init error: %s\n", SDL_GetError());
-    return 1;
-  }
-  else
-  {
-    //Use OpenGL 3.1 core
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 3 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+	//Holds pointer to the keyboard state
+	const Uint8 *keyboard_state = SDL_GetKeyboardState(NULL);
 
-    // Turn on double buffering with a 24bit Z buffer.
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-    SDL_Window* disp_window;
-    disp_window = SDL_CreateWindow("cward",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        512,
-        512,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
-
-    if(!disp_window)
-    {
-      printf("Window could not be created! SDL Error: %s\n", SDL_GetError());
-      return 1;
-    }
-    else
-    {
-
-      SDL_GLContext main_context;
-
-      main_context = SDL_GL_CreateContext(disp_window);
-
-      if(main_context == NULL)
-      {
-        printf("OpenGL context could not be created! SDL Error: %s\n", SDL_GetError());
-        return 1;
-      }
-      else
-      {
-        glewExperimental = GL_TRUE;
-        GLenum glew_error = glewInit();
-
-        if(glew_error != GLEW_OK)
-        {
-          printf("Error initializing GLEW %s\n", glewGetErrorString(glew_error));
-        }
-
-        printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
-        printf("GLSL Version: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
-        printf("Vendor: %s\n", glGetString(GL_VENDOR));
-        printf("Renderer: %s\n", glGetString(GL_RENDERER));
-
-        //OpenGL Settings
-        glEnable(GL_BLEND);
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
-
-        //Use Vsync
-        if(SDL_GL_SetSwapInterval(1) < 0)
-        {
-          printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
-        }
-
-      }
-
-    }
-  }
-  return 0;
+	if (keyboard_state[SDL_SCANCODE_W])
+	{
+		debug("Pressed W\n");
+	}
+	if (keyboard_state[SDL_SCANCODE_S])
+	{
+		debug("Presed S\n");
+	}
 }
 
 int main(int argc, char** argv[])
 {
-  if(Init())
-  {
-    printf("Failed to initialize\n");
-    return 1;
-  }
-  else
-  {   
-    while(1)
-    {
-      TODO("Write core rendering loop");
-    }
-    SDL_Quit();
-  }
+	log_init();
 
+	debug("Starting Cward...");
+
+	graphics_init();
+
+	int running = 1;
+	SDL_Event sdl_event;
+
+  while(running)
+  {
+		while (SDL_PollEvent(&sdl_event) != 0)
+		{
+			switch (sdl_event.type)
+			{
+				case SDL_KEYDOWN:
+					break;
+				case  SDL_KEYUP:
+					if (sdl_event.key.keysym.sym == SDLK_ESCAPE) { running = 0; }
+					break;
+				case SDL_QUIT:
+					running = 0;
+					break;
+			}
+		}
+
+		TextInput();
+
+		graphics_swap();
+  }
+  SDL_Quit();
   return 0;
 } 
