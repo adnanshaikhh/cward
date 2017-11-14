@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include "log.h"
 #include "graphics.h"
+#include "timer.h"
+#include <string.h>
 
 void TextInput()
 {
@@ -32,6 +34,10 @@ int main(int argc, char** argv[])
 
   while(running)
   {
+		frame_begin();
+
+		graphics_viewport_set_title(frame_rate_string());
+
 		while (SDL_PollEvent(&sdl_event) != 0)
 		{
 			switch (sdl_event.type)
@@ -50,6 +56,8 @@ int main(int argc, char** argv[])
 		TextInput();
 
 		graphics_swap();
+
+		frame_end();
   }
   SDL_Quit();
   return 0;
