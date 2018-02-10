@@ -1,8 +1,11 @@
 #include "timer.h"
+
 #include "log.h"
-#include <time.h>
-#include <SDL.h>
 #include "mathops.h"
+
+#include <SDL.h>
+
+#include <time.h>
 
 timer timer_start(int id, const char* tag)
 {

@@ -1,9 +1,12 @@
 #define SDL_MAIN_HANDLED
-#include <SDL.h>
-#include <GL/glew.h>
-#include "log.h"
+
 #include "graphics.h"
+#include "log.h"
 #include "timer.h"
+
+#include <GL/glew.h>
+#include <SDL.h>
+
 #include <string.h>
 
 void TextInput()

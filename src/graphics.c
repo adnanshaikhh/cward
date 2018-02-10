@@ -1,7 +1,9 @@
 #include "graphics.h"
-#include<SDL.h>
-#include <GL/glew.h>
+
 #include "log.h"
+
+#include <GL/glew.h>
+#include <SDL.h>
 
 static SDL_Window* screen = NULL;
 static SDL_GLContext* context = NULL;

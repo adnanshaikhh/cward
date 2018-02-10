@@ -1,6 +1,8 @@
 #include "log.h"
-#include "signal.h"
-#include "stdlib.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
 
 typedef void(*error_func_t)(const char*);
 typedef void(*warn_func_t)(const char*);
