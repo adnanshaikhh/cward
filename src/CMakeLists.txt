@@ -33,11 +33,9 @@ set(GLAD_INCLUDE_DIR glad/include)
 
 
 set(CWARD_SOURCES
-    main.c
-    log.c
-    graphics.c
-    timer.c
-    mathops.c
+    main.cc
+    game.cc
+    mathops.cc
     ${GLAD_SOURCES}
     )
 
@@ -59,6 +57,7 @@ add_executable(cward ${CWARD_SOURCES})
 target_link_libraries(cward glfw tinyobjloader)
 target_include_directories(cward PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_include_directories(cward PUBLIC ../third_party/tinyobjloader)
+target_include_directories(cward PUBLIC ../third_party/glm)
 target_include_directories(cward PUBLIC ${GLAD_INCLUDE_DIR})
 
 # Copy over asset directories on modification.
